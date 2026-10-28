@@ -1,0 +1,28 @@
+{
+  "fetched_at": "2026-10-28T17:30:03+00:00",
+  "window_start": "2026-01-01T00:00:00+00:00",
+  "window_end": "2026-02-01T00:00:00+00:00",
+  "publish_buffer_days": 3,
+  "dropped_null_actuals": 0,
+  "dropped_null_forecasts": 0,
+  "expected_half_hours": 1488,
+  "actuals_rows": 1488,
+  "missing_actual_count": 0,
+  "missing_actual_examples": [],
+  "forecast_rows": 18080,
+  "forecast_publish_times": 264,
+  "publish_first": "2025-12-30T02:30:00+00:00",
+  "publish_last": "2026-01-31T22:30:00+00:00",
+  "targets_with_forecast": 744,
+  "targets_without_forecast": 744,
+  "versions_per_target": {
+    "min": 16.0,
+    "median": 24.0,
+    "max": 32.0
+  },
+  "max_horizon_h": {
+    "min": 43.5,
+    "median": 55.0,
+    "max": 66.5
+  }
+}
