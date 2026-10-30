@@ -60,8 +60,10 @@ def build_report(
         "ns"
     )
     missing = expected.difference(pd.DatetimeIndex(actuals["startTime"]))
+    # WINDFOR is published hourly, so judge forecast coverage on the hourly grid only.
+    hourly = expected[expected.minute == 0]
     have = pd.DatetimeIndex(forecasts["startTime"].unique())
-    covered = expected.intersection(have)
+    covered = hourly.intersection(have)
 
     horizon_h = (forecasts["startTime"] - forecasts["publishTime"]) / pd.Timedelta(hours=1)
     per_target = forecasts.assign(horizon_h=horizon_h).groupby("startTime")
@@ -79,7 +81,8 @@ def build_report(
         "publish_first": forecasts["publishTime"].min().isoformat() if has_pub else None,
         "publish_last": forecasts["publishTime"].max().isoformat() if has_pub else None,
         "targets_with_forecast": len(covered),
-        "targets_without_forecast": len(expected) - len(covered),
+        "expected_hourly_targets": len(hourly),
+        "targets_without_forecast": len(hourly) - len(covered),
         "versions_per_target": _stats(versions),
         "max_horizon_h": _stats(max_horizon),
     }

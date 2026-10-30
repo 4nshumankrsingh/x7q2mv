@@ -51,9 +51,13 @@ def test_restrict_to_window_is_half_open() -> None:
     ]
 
 
+def _fc(publish: str, target: str, mw: int) -> dict[str, object]:
+    return {"publishTime": publish, "startTime": target, "generation": mw}
+
+
 def test_report_finds_missing_actuals_and_horizons() -> None:
     start = pd.Timestamp("2026-01-01T00:00", tz="UTC")
-    end = pd.Timestamp("2026-01-01T02:00", tz="UTC")  # 4 half-hours
+    end = pd.Timestamp("2026-01-01T02:00", tz="UTC")  # 4 half-hours, 2 hourly targets
     actuals, _ = actuals_to_frame(
         [
             {"startTime": "2026-01-01T00:00:00Z", "generation": 1},
@@ -63,15 +67,16 @@ def test_report_finds_missing_actuals_and_horizons() -> None:
     )
     forecasts, _ = forecasts_to_frame(
         [
-            {"publishTime": "2025-12-31T12:00:00Z", "startTime": "2026-01-01T00:00:00Z", "generation": 5},
-            {"publishTime": "2025-12-31T12:00:00Z", "startTime": "2026-01-01T00:30:00Z", "generation": 5},
-            {"publishTime": "2025-12-31T18:00:00Z", "startTime": "2026-01-01T00:30:00Z", "generation": 6},
+            _fc("2025-12-31T12:00:00Z", "2026-01-01T00:00:00Z", 5),
+            _fc("2025-12-31T12:00:00Z", "2026-01-01T01:00:00Z", 5),
+            _fc("2025-12-31T18:00:00Z", "2026-01-01T01:00:00Z", 6),
         ]
     )
     report = build_report(actuals, forecasts, start, end)
     assert report["expected_half_hours"] == 4
     assert report["missing_actual_count"] == 1
+    assert report["expected_hourly_targets"] == 2
     assert report["targets_with_forecast"] == 2
-    assert report["targets_without_forecast"] == 2
+    assert report["targets_without_forecast"] == 0
     assert report["versions_per_target"]["max"] == 2
-    assert report["max_horizon_h"]["max"] == 12.5
+    assert report["max_horizon_h"]["max"] == 13.0
