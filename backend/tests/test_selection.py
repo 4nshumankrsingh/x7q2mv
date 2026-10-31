@@ -65,7 +65,7 @@ def test_each_target_is_selected_independently() -> None:
     [
         ("2026-01-15T12:00:00Z", "2026-01-14T09:20:00Z"),  # winter: UK time == UTC
         ("2026-07-15T12:00:00Z", "2026-07-14T08:20:00Z"),  # summer: 09:20 BST == 08:20 UTC
-        ("2026-07-14T23:30:00Z", "2026-07-14T08:20:00Z"),  # 00:30 BST on 15 Jul is delivery day 15 Jul
+        ("2026-07-14T23:30:00Z", "2026-07-14T08:20:00Z"),  # 00:30 BST on 15 Jul is the 15th
         ("2026-03-30T12:00:00Z", "2026-03-29T08:20:00Z"),  # D-1 is the clock-change day
         ("2026-03-29T00:30:00Z", "2026-03-28T09:20:00Z"),  # just before clocks go forward
     ],

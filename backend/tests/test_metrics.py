@@ -92,7 +92,11 @@ def test_metrics_by_hour_uses_uk_local_hour() -> None:
     df = _ts(
         pd.DataFrame(
             {
-                "startTime": ["2026-01-02T00:00:00Z", "2026-01-03T00:00:00Z", "2026-01-02T05:00:00Z"],
+                  "startTime": [
+                      "2026-01-02T00:00:00Z",
+                      "2026-01-03T00:00:00Z",
+                      "2026-01-02T05:00:00Z",
+                  ],
                 "forecast": [1.0, 1.0, 1.0],
                 "actual": [1.0, 1.0, 1.0],
             }

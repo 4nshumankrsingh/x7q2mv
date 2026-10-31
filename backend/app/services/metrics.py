@@ -16,7 +16,9 @@ LEAD_BINS = [0, 6, 12, 18, 24, 36, 48, float("inf")]
 LEAD_LABELS = ["0-6h", "6-12h", "12-18h", "18-24h", "24-36h", "36-48h", "48h+"]
 
 
-def align(forecasts: pd.DataFrame, actuals: pd.DataFrame, how: Alignment = "same_start") -> pd.DataFrame:
+def align(
+      forecasts: pd.DataFrame, actuals: pd.DataFrame, how: Alignment = "same_start"
+  ) -> pd.DataFrame:
     """Inner-join forecasts (startTime, publishTime, forecast) to actuals (startTime, generation).
 
     same_start: actual with the same startTime as the forecast.

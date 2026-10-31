@@ -1,4 +1,4 @@
-"""Run selection and metrics on the committed snapshot. Run from backend/: python -m scripts.analyze"""
+"""Run selection and metrics on the committed snapshot: python -m scripts.analyze."""
 
 from __future__ import annotations
 
